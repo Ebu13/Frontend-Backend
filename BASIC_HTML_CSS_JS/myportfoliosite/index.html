@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="shortcut icon" href="assets/Logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="index.css" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <!-- Header Section-->
+    <header>
+      <!-- Navbar Section-->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"
+          ><img src="assets/Logo.png" alt="Error" style="height: 50px"
+        /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#education"><h3>Education</h3></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#skills"><h3>Skills</h3></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#projects"><h3>Projects</h3></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact"><h3>Contact</h3></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <!-- Section 1: Education Information -->
+      <section id="education" class="container">
+        <div class="row">
+          <div class="col-md-12 mt-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Education Information</h5>
+                <p class="card-text">
+                  I am currently studying Software Engineering at Inonu
+                  University and I am in my second year.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Section 2: Projects -->
+      <section id="projects" class="container">
+        <div class="row">
+          <div class="col-md-12 mt-4 text-center">
+            <h1>Github Projects</h1>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mt-4">
+            <div id="projectsContainer" class="card-deck"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Skills -->
+      <section id="skills" class="container">
+        <div class="text-center">
+          <br />
+          <h1 class="card-title text-center">Skills</h1>
+        </div>
+        <div class="row">
+          <br />
+          <div class="col-md-12 mt-4">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-text">Microsoft Office/PDF Editing</p>
+                <ul>
+                  <li>Intermediate Level</li>
+                </ul>
+                <p class="card-text">UI/UX Design</p>
+                <ul>
+                  <li>Figma</li>
+                  <li>Adobe XD</li>
+                </ul>
+                <p class="card-text">C/C++/C#/Java/Python Syntax</p>
+                <ul>
+                  <li>Advanced Level</li>
+                </ul>
+                <p class="card-text">HTML/CSS/JS/Bootstrap</p>
+                <ul>
+                  <li>Intermediate Level</li>
+                </ul>
+                <p class="card-text">Database CRUD Operations</p>
+                <ul>
+                  <li>Advanced Level</li>
+                </ul>
+                <p class="card-text">English</p>
+                <ul>
+                  <li>Reading, Writing, and Speaking</li>
+                </ul>
+                <p class="card-text">Arabic</p>
+                <ul>
+                  <li>Level A1</li>
+                </ul>
+                <p class="card-text">German</p>
+                <ul>
+                  <li>Level A2</li>
+                </ul>
+                <p class="card-text">API</p>
+                <ul>
+                  <li>Beginner Level</li>
+                </ul>
+                <p class="card-text">Adobe Logo/Icon/PDF/Photoshop</p>
+                <ul>
+                  <li>Intermediate Level</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Footer Section-->
+    <footer class="footer-container" id="contact">
+      <!-- Contact Section-->
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <br />
+            <h1 class="mb-4">Contact Information</h1>
+          </div>
+          <div class="col-md-12 text-center">
+            <a href="mailto:fulldevstudios@gmail.com" style="font-size: 18px">
+              <img
+                src="assets/icons8-mail-100.png"
+                alt="Email"
+                class="contact-icons"
+              />
+              fulldevstudios@gmail.com
+            </a>
+          </div>
+          <br /><br />
+          <div class="col-md-12 text-center">
+            <a href="https://github.com/Ebu13">
+              <img
+                src="assets/icons8-github.svg"
+                alt="GitHub"
+                class="contact-icons"
+              />
+            </a>
+            <a href="https://dribbble.com/devebu">
+              <img
+                src="assets/icons8-dribbble-100.png"
+                alt="Dribbble"
+                class="contact-icons"
+              />
+            </a>
+            <a href="https://www.linkedin.com/in/ebubekir-nazli-13esn/">
+              <img
+                src="assets/icons8-linkedin-100.png"
+                alt="LinkedIn"
+                class="contact-icons"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+      <br />
+    </footer>
+    <script>
+      // Fetching projects with GitHub API
+      $.getJSON(
+        "https://api.github.com/users/Ebu13/repos?type=owner&sort=updated",
+        function (data) {
+          var projectsContainer = $("#projectsContainer");
+
+          data.forEach(function (repo) {
+            var projectTitle = repo.name;
+            var projectLink = repo.html_url;
+            var projectDescription = repo.description;
+
+            var projectHTML = `
+        <div class="col-md-4 mt-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">${projectTitle}</h5>
+              <p class="card-text">${projectDescription}</p>
+              <a href="${projectLink}" class="btn btn-primary">View on GitHub</a>
+            </div>
+          </div>
+        </div>
+      `;
+            projectsContainer.append(projectHTML);
+          });
+        }
+      );
+    </script>
+  </body>
+</html>

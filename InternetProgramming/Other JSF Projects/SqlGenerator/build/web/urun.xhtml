@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Ürün Yönetimi</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
+    </h:head>
+
+    <h:body class="container">
+        <h1>Ürün Yönetimi</h1>
+
+        <!-- Ürün Ekleme Formu -->
+        <h:form id="urunEkleFormu" class="mb-4">
+            <h2>Ürün Ekle</h2>
+            <div class="form-group">
+                <h:outputLabel for="ad">Ad:</h:outputLabel>
+                <h:inputText id="ad" value="#{urunController.newUrun.ad}" required="true" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="fiyat">Fiyat:</h:outputLabel>
+                <h:inputText id="fiyat" value="#{urunController.newUrun.fiyat}" required="true" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="stokMiktari">Stok Miktarı:</h:outputLabel>
+                <h:inputText id="stokMiktari" value="#{urunController.newUrun.stokMiktari}" required="true" class="form-control"/>
+            </div>
+            <h:commandButton value="Ekle" action="#{urunController.addUrun}" class="btn btn-primary"/>
+        </h:form>
+
+        <!-- Ürün Listesi -->
+        <h2>Ürünler</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Ürün ID</th>
+                        <th>Ad</th>
+                        <th>Fiyat</th>
+                        <th>Stok Miktarı</th>
+                        <th>Düzenle</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ui:repeat value="#{urunController.urunler}" var="urun">
+                        <tr>
+                            <td>#{urun.id}</td>
+                            <td>#{urun.ad}</td>
+                            <td>#{urun.fiyat}</td>
+                            <td>#{urun.stokMiktari}</td>
+                            <td>
+                                <h:form>
+                                    <h:commandButton value="Düzenle" action="#{urunController.editUrun(urun)}" class="btn btn-warning">
+                                        <f:setPropertyActionListener target="#{urunController.selectedUrun}" value="#{urun}" />
+                                    </h:commandButton>
+                                </h:form>
+                            </td>
+                            <td>
+                                <h:form>
+                                    <h:commandButton value="Sil" action="#{urunController.deleteUrun(urun.id)}" onclick="return confirm('Emin misiniz?')" class="btn btn-danger"/>
+                                </h:form>
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Ürün Düzenleme Formu -->
+        <h:form id="urunDuzenleFormu" rendered="#{not empty urunController.selectedUrun}">
+            <h2>Ürün Düzenle</h2>
+            <div class="form-group">
+                <h:outputLabel for="duzenleAd">Ad:</h:outputLabel>
+                <h:inputText id="duzenleAd" value="#{urunController.selectedUrun.ad}" required="true" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="duzenleFiyat">Fiyat:</h:outputLabel>
+                <h:inputText id="duzenleFiyat" value="#{urunController.selectedUrun.fiyat}" required="true" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="duzenleStokMiktari">Stok Miktarı:</h:outputLabel>
+                <h:inputText id="duzenleStokMiktari" value="#{urunController.selectedUrun.stokMiktari}" required="true" class="form-control"/>
+            </div>
+            <h:commandButton value="Güncelle" action="#{urunController.updateUrun}" class="btn btn-success"/>
+        </h:form>
+
+        <!-- Bootstrap JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </h:body>
+</html>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="jakarta.faces.core"
+                template="/admin/template/template.xhtml">
+
+    <ui:define name="content">
+        <!-- Review List -->
+        <h2>Yorumlar</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>User Name</th>
+                        <th>Product Name</th>
+                        <th>Rating</th>
+                        <th>Comment</th>
+                        <th>Review Date</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ui:repeat value="#{reviewController.reviews}" var="review">
+                        <tr>
+                            <td>#{review.userName}</td>
+                            <td>#{review.productName}</td>
+                            <td>#{review.rating}</td>
+                            <td>#{review.comment}</td>
+                            <td>#{review.reviewDate}</td>
+                            <td>
+                                <h:form>
+                                    <h:commandButton value="Delete" action="#{reviewController.deleteReview(review.reviewId)}" onclick="return confirm('Are you sure?')" class="btn btn-danger"/>
+                                </h:form>
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                </tbody>
+            </table>
+        </div>
+    </ui:define>
+</ui:composition>

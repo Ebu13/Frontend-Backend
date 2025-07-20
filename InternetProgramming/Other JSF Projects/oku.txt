@@ -1,0 +1,3 @@
+Varlık sınıflarına göre istediğin veritabanında tabloları oluştur.
+Util paketlerindekileri veritabanına göre değiştir.
+Paketleri ve kütüphaneleri yüklemeyi unutma

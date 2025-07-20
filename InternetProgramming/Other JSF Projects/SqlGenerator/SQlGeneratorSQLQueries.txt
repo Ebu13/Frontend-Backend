@@ -1,0 +1,27 @@
+CREATE TABLE musteriler (
+    musteriId SERIAL PRIMARY KEY,
+    ad VARCHAR(100),
+    soyad VARCHAR(100),
+    email VARCHAR(100),
+    telefon VARCHAR(20)
+);
+
+CREATE TABLE urunler (
+    UrunId SERIAL PRIMARY KEY,
+    ad VARCHAR(100),
+    fiyat NUMERIC(10,2),
+    stok_miktari INTEGER
+);
+
+INSERT INTO musteriler (ad, soyad, email, telefon)
+VALUES ('Ahmet', 'Yılmaz', 'ahmet@example.com', '5551234567'),
+       ('Ayşe', 'Kara', 'ayse@example.com', '5559876543'),
+       ('Mehmet', 'Demir', 'mehmet@example.com', '5554567890');
+	   
+	   
+	   
+	   
+INSERT INTO urunler (ad, fiyat, stok_miktari)
+VALUES ('Laptop', 3000.00, 10),
+       ('Telefon', 2000.00, 20),
+       ('Tablet', 1500.00, 15);

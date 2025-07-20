@@ -1,0 +1,20 @@
+Contexts and Dependency Injection (CDI)
+Java EE (Enterprise Edition) veya Jakarta EE (Enterprise Edition) gibi büyük ölçekli uygulamalarda sıkça kullanılan bir yazılım tasarım desenidir.
+Bu desen, yazılım bileşenlerinin (component) oluşturulması, yönetilmesi ve etkileşimlerinin sağlanması için bir çerçeve sunar.
+
+Bileşenlerin Bağımlılıklarını Yönetme: CDI, bileşenler arasındaki bağımlılıkları kolayca yönetmeyi sağlar. 
+Bileşenler, diğer bileşenlere ihtiyaç duydukları nesneleri (dependency) bir arayüz veya sınıf üzerinden tanımlarlar 
+ve bu bağımlılıklar CDI tarafından enjekte edilir.
+Hayat Döngüsü Yönetimi: CDI, bileşenlerin hayat döngüsünü yönetir. 
+Bu, bir bileşenin ne zaman oluşturulacağını, hangi durumlarda yok edileceğini ve hangi bağlamlarda çalışacağını tanımlar.
+Örneğin, bir web uygulamasında bir HTTP isteği bağlamında çalışan bir bileşenin ömrü, isteğin başlatılması ve sona ermesiyle sınırlı olabilir.
+Bileşenler Arası Etkileşim: CDI, bileşenler arasında etkileşimi sağlar. 
+Bu, bir bileşenin diğer bileşenlerle iletişim kurmasını, hizmetlerini paylaşmasını ve işbirliği yapmasını kolaylaştırır.
+Örneğin, bir servis bileşeni, veritabanına erişim sağlamak için bir veri erişim nesnesine (DAO) bağımlı olabilir ve bu bağımlılık CDI tarafından yönetilir.
+Modüler ve Esnek Uygulama Geliştirme: CDI, yazılım geliştiricilere modüler ve esnek uygulamalar oluşturmak için bir çerçeve sunar. 
+Bileşenler arasındaki bağımlılıkların azaltılması 
+ve CDI'nin sunduğu enjeksiyon ve bağlam yönetimi gibi özellikler, kodun tekrar kullanılabilirliğini, bakımını ve test edilebilirliğini artırır.
+CDI'nin temel prensipleri arasında "Inversion of Control" (IoC) ve "Dependency Injection" (DI) bulunur. 
+IoC, bir bileşenin kendi bağımlılıklarını yönetmek yerine dışarıdan sağlanmasını öngörürken, 
+DI ise bir bileşenin ihtiyaç duyduğu bağımlılıkların otomatik olarak sağlanmasıdır. 
+Bu prensipler, CDI'nin temelini oluşturur ve yazılım geliştiricilere daha düzenli, esnek ve bakımı kolay uygulamalar oluşturmalarına yardımcı olur.

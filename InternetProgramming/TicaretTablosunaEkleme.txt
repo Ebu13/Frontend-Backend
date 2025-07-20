@@ -1,0 +1,370 @@
+
+-- Kullanıcılar tablosu
+CREATE TABLE Users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_type VARCHAR(50) CHECK (user_type IN ('DomesticSupplier', 'ForeignBuyer')) NOT NULL
+);
+
+
+-- Ürünler tablosu
+CREATE TABLE Products (
+    product_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES Users(user_id), -- Ürünü ekleyen kullanıcı
+    product_name VARCHAR(100) NOT NULL,
+    description TEXT,
+    price NUMERIC(10, 2) NOT NULL,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Ürün Kategorileri tablosu
+CREATE TABLE ProductCategories (
+    category_id SERIAL PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL
+);
+
+-- Ürünlerin Kategori İlişkisi tablosu
+CREATE TABLE ProductCategoryMapping (
+    product_id INT REFERENCES Products(product_id),
+    category_id INT REFERENCES ProductCategories(category_id),
+    PRIMARY KEY (product_id, category_id)
+);
+
+-- Stoklar tablosu
+CREATE TABLE Stocks (
+    stock_id SERIAL PRIMARY KEY,
+    product_id INT REFERENCES Products(product_id),
+    quantity INT NOT NULL,
+    last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Siparişler tablosu
+CREATE TABLE Orders (
+    order_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES Users(user_id),
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total_amount NUMERIC(10, 2) NOT NULL
+);
+
+-- Sipariş Detayları tablosu
+CREATE TABLE OrderDetails (
+    detail_id SERIAL PRIMARY KEY,
+    order_id INT REFERENCES Orders(order_id),
+    product_id INT REFERENCES Products(product_id),
+    quantity INT NOT NULL,
+    price NUMERIC(10, 2) NOT NULL
+);
+
+-- İade ve İptal Talepleri tablosu
+CREATE TABLE ReturnAndCancellationRequests (
+    request_id SERIAL PRIMARY KEY,
+    order_id INT REFERENCES Orders(order_id),
+    user_id INT REFERENCES Users(user_id),
+    request_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    request_type VARCHAR(12) CHECK (request_type IN ('Return', 'Cancellation')) NOT NULL,
+    status VARCHAR(8) CHECK (status IN ('Pending', 'Approved', 'Rejected')) DEFAULT 'Pending'
+);
+
+
+-- Değerlendirme ve Yorumlar tablosu
+CREATE TABLE Reviews (
+    review_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES Users(user_id),
+    product_id INT REFERENCES Products(product_id),
+    rating INT NOT NULL,
+    comment TEXT,
+    review_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Mesajlaşmalar tablosu (Kullanıcılar arası mesajlaşma)
+CREATE TABLE Messages (
+    message_id SERIAL PRIMARY KEY,
+    sender_id INT REFERENCES Users(user_id),
+    receiver_id INT REFERENCES Users(user_id),
+    message_text TEXT NOT NULL,
+    send_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_read BOOLEAN DEFAULT FALSE
+);
+
+--------------------------------------------------------------
+
+INSERT INTO Users (username, password, email, user_type)
+VALUES 
+    ('ahmet', 'ahmet123', 'ahmet@example.com', 'DomesticSupplier'),
+    ('mehmet', 'mehmet456', 'mehmet@example.com', 'DomesticSupplier'),
+    ('ayşe', 'ayse789', 'ayse@example.com', 'DomesticSupplier'),
+    ('fatma', 'fatma321', 'fatma@example.com', 'ForeignBuyer'),
+    ('ali', 'ali654', 'ali@example.com', 'ForeignBuyer'),
+    ('zeynep', 'zeynep987', 'zeynep@example.com', 'ForeignBuyer'),
+    ('mustafa', 'mustafa123', 'mustafa@example.com', 'DomesticSupplier'),
+    ('elif', 'elif456', 'elif@example.com', 'DomesticSupplier'),
+    ('osman', 'osman789', 'osman@example.com', 'ForeignBuyer'),
+    ('aylin', 'aylin321', 'aylin@example.com', 'ForeignBuyer');
+
+
+INSERT INTO Products (user_id, product_name, description, price)
+VALUES 
+    (1, 'Kahve Makinesi', 'Yüksek kaliteli kahve makinesi', 149.99),
+    (2, 'Akıllı Telefon', 'Yeni çıkan akıllı telefon modeli', 799.99),
+    (3, 'Yoga Matı', 'Kaymaz yoga matı', 29.99),
+    (4, 'Masa Lambası', 'Modern tasarımlı masa lambası', 59.99),
+    (5, 'Akıllı Saat', 'Spor yaparken kullanıma uygun akıllı saat', 199.99),
+    (6, 'Yazılım Lisansı', 'Profesyonel yazılım lisansı', 499.99),
+    (7, 'Kanvas Tablo', 'Soyut resimli kanvas tablo', 79.99),
+    (8, 'Oyun Konsolu', 'Son teknoloji oyun konsolu', 399.99),
+    (9, 'Bluetooth Hoparlör', 'Taşınabilir bluetooth hoparlör', 69.99),
+    (10, 'Kahve Seti', 'Vintage tarzda kahve seti', 89.99),
+    (1, 'Ergonomik Ofis Sandalyesi', 'Sırt desteği bulunan ofis sandalyesi', 149.99),
+    (2, 'Katlanabilir Kamp Sandalyesi', 'Taşınabilir ve katlanabilir kamp sandalyesi', 29.99),
+    (3, 'Güneş Gözlüğü', 'Polarize güneş gözlüğü', 49.99),
+    (4, 'Cep Telefonu Şarj Cihazı', 'Hızlı şarj özelliğine sahip cep telefonu şarj cihazı', 19.99),
+    (5, 'Gaming Mouse', 'RGB aydınlatmalı profesyonel gaming mouse', 69.99),
+    (6, 'Powerbank', 'Yüksek kapasiteli taşınabilir şarj cihazı', 39.99),
+    (7, 'Bluetooth Kulaklık', 'Kablosuz bluetooth kulaklık', 59.99),
+    (8, 'Spor Şort', 'Rahat kesim spor şort', 24.99),
+    (9, 'Saat ve Tarih Göstergeli Duvar Saati', 'Modern tasarımlı duvar saati', 29.99),
+    (10, 'Şarj Edilebilir LED Lamba', 'USB ile şarj edilebilir taşınabilir LED lamba', 19.99),
+    (1, 'Sporcu Sırt Çantası', 'Sporcular için özel tasarlanmış sırt çantası', 39.99),
+    (2, 'Bluetooth Selfie Çubuğu', 'Kablosuz selfie çubuğu', 14.99),
+    (3, 'Soyunma Odası Aynası', 'Katlanabilir soyunma odası aynası', 34.99),
+    (4, 'Çocuk Oyuncak Seti', 'Eğitici ve öğretici çocuk oyuncak seti', 49.99),
+    (5, 'Yoga Bloğu', 'Yoga pratiği için dayanıklı yoga bloğu', 14.99),
+    (6, 'Kulaklık Standı', 'Masaya takılabilir kulaklık standı', 9.99),
+    (7, 'Güneşlik Şapka', 'Güneş ışınlarına karşı koruyucu güneşlik şapka', 19.99),
+    (8, 'Sporcu Eldiveni', 'Antrenman için özel tasarlanmış sporcu eldiveni', 19.99),
+    (9, 'Bisiklet Sinyal Lambası', 'Bisiklet kullanımı için LED sinyal lambası', 12.99),
+    (10, 'Makyaj Aynası', 'Işıklı makyaj aynası', 39.99),
+    (1, 'Sıcak Su Torbası', 'Soğuk havalarda kullanıma uygun sıcak su torbası', 9.99),
+    (2, 'Sporcu Kova Şapka', 'Ter tutmayan sporcu kova şapka', 24.99),
+    (3, 'Yazılım Eğitim Kiti', 'Yazılım geliştirme için kapsamlı eğitim kitleri', 129.99);
+
+
+
+
+
+INSERT INTO ProductCategories (category_name)
+VALUES 
+    ('Ev Elektroniği'),
+    ('Telefonlar'),
+    ('Spor Malzemeleri'),
+    ('Ev Dekorasyonu'),
+    ('Spor Giyim'),
+    ('Yazılım'),
+    ('Tablolar'),
+    ('Oyun Konsolları'),
+    ('Ses Sistemleri'),
+    ('Mutfak Gereçleri'),
+    ('Ev Eşyaları'),
+    ('Elektronik'),
+    ('Spor Malzemeleri'),
+    ('Aksesuar'),
+    ('Oyuncaklar'),
+    ('Kişisel Bakım'),
+    ('Sanat ve Dekorasyon'),
+    ('Spor Giyim'),
+    ('Ofis Malzemeleri'),
+    ('Outdoor');
+
+
+
+INSERT INTO ProductCategoryMapping (product_id, category_id)
+VALUES 
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 6),
+    (7, 7),
+    (8, 8),
+    (9, 9),
+    (10, 10),
+    (11, 1),
+    (12, 2),
+    (13, 3),
+    (14, 4),
+    (15, 5),
+    (16, 6),
+    (17, 7),
+    (18, 8),
+    (19, 9),
+    (20, 10),
+    (21, 1),
+    (22, 2),
+    (23, 3),
+    (24, 4),
+    (25, 5),
+    (26, 6),
+    (27, 7),
+    (28, 8),
+    (29, 9),
+    (30, 10),
+    (31, 1),
+    (32, 2),
+    (33, 3);
+
+
+
+INSERT INTO Stocks (product_id, quantity)
+VALUES 
+    (1, 50),
+    (2, 100),
+    (3, 75),
+    (4, 30),
+    (5, 80),
+    (6, 20),
+    (7, 40),
+    (8, 60),
+    (9, 55),
+    (10, 25),
+    (11, 60),
+    (12, 45),
+    (13, 90),
+    (14, 70),
+    (15, 55),
+    (16, 40),
+    (17, 65),
+    (18, 80),
+    (19, 50),
+    (20, 35),
+    (21, 75),
+    (22, 30),
+    (23, 65),
+    (24, 25),
+    (25, 60),
+    (26, 40),
+    (27, 55),
+    (28, 70),
+    (29, 45),
+    (30, 35),
+    (31, 80),
+    (32, 50),
+    (33, 20);
+
+INSERT INTO Orders (user_id, total_amount)
+VALUES 
+    (1, 279.99),
+    (2, 849.99),
+    (3, 109.99),
+    (4, 129.99),
+    (5, 299.99),
+    (6, 799.99),
+    (7, 219.98),
+    (8, 499.99),
+    (9, 139.99),
+    (10, 159.99),
+    (1, 349.99),
+    (2, 699.99),
+    (3, 79.99),
+    (4, 89.99),
+    (5, 249.99),
+    (6, 599.99),
+    (7, 179.98),
+    (8, 599.99);
+
+
+
+INSERT INTO OrderDetails (order_id, product_id, quantity, price)
+VALUES 
+    (1, 11, 2, 34.99),
+    (2, 12, 1, 29.99),
+    (3, 13, 2, 49.99),
+    (4, 14, 1, 19.99),
+    (5, 15, 1, 69.99),
+    (6, 16, 1, 39.99),
+    (7, 17, 2, 59.99),
+    (8, 18, 1, 24.99),
+    (9, 19, 1, 29.99),
+    (10, 20, 1, 19.99),
+    (11, 21, 2, 39.99),
+    (12, 22, 1, 14.99),
+    (13, 23, 2, 34.99),
+    (14, 24, 1, 49.99),
+    (15, 25, 1, 14.99),
+    (16, 26, 1, 9.99),
+    (17, 27, 1, 19.99),
+    (18, 28, 1, 19.99);
+
+
+INSERT INTO ReturnAndCancellationRequests (order_id, user_id, request_type)
+VALUES 
+    (1, 1, 'Return'),
+    (2, 2, 'Cancellation'),
+    (3, 3, 'Return'),
+    (4, 4, 'Cancellation'),
+    (5, 5, 'Return'),
+    (6, 6, 'Cancellation'),
+    (7, 7, 'Return'),
+    (8, 8, 'Cancellation');
+
+
+INSERT INTO Reviews (user_id, product_id, rating, comment)
+VALUES 
+    (1, 11, 5, 'Ergonomik ofis sandalyesi sırt desteği çok rahat.'),
+    (2, 12, 4, 'Katlanabilir kamp sandalyesi hafif ve kullanışlı.'),
+    (3, 13, 5, 'Güneş gözlüğü kaliteli ve şık duruyor.'),
+    (4, 14, 4, 'Cep telefonu şarj cihazı hızlı şarj ediyor.'),
+    (5, 15, 3, 'Gaming mouse tasarımı hoş ancak ağırlığı biraz fazla.'),
+    (6, 16, 5, 'Powerbank yüksek kapasiteli ve hızlı şarj özelliği var.'),
+    (7, 17, 4, 'Bluetooth kulaklık kablosuz özgürlük sağlıyor.'),
+    (8, 18, 3, 'Spor şort rahat ancak biraz dar.'),
+    (9, 19, 5, 'Saat ve tarih göstergeli duvar saati şık ve işlevsel.'),
+    (10, 20, 4, 'Şarj edilebilir LED lamba aydınlatması yeterli.'),
+    (1, 21, 5, 'Sporcu sırt çantası kaliteli malzemeden yapılmış.'),
+    (2, 22, 4, 'Bluetooth selfie çubuğu pratik ve kullanışlı.'),
+    (3, 23, 5, 'Soyunma odası aynası katlanabilir ve taşınabilir.'),
+    (4, 24, 4, 'Çocuk oyuncak seti eğlenceli ve öğretici.'),
+    (5, 25, 3, 'Yoga bloğu dayanıklı ancak boyutu biraz küçük.'),
+    (6, 26, 5, 'Kulaklık standı masaya kolayca monte edilebiliyor.'),
+    (7, 27, 4, 'Güneşlik şapka rüzgarlı havalarda da kullanışlı.'),
+    (8, 28, 3, 'Sporcu eldiveni rahat ancak biraz sıkı.'),
+    (9, 29, 5, 'Bisiklet sinyal lambası gece görünürlüğü sağlıyor.'),
+    (10, 30, 4, 'Makyaj aynası ışıklı ve kullanışlı.'),
+    (1, 11, 5, 'Ergonomik ofis sandalyesi sırt desteği çok rahat.'),
+    (2, 12, 4, 'Katlanabilir kamp sandalyesi hafif ve kullanışlı.'),
+    (3, 13, 5, 'Güneş gözlüğü kaliteli ve şık duruyor.'),
+    (4, 14, 4, 'Cep telefonu şarj cihazı hızlı şarj ediyor.'),
+    (5, 15, 3, 'Gaming mouse tasarımı hoş ancak ağırlığı biraz fazla.'),
+    (6, 16, 5, 'Powerbank yüksek kapasiteli ve hızlı şarj özelliği var.'),
+    (7, 17, 4, 'Bluetooth kulaklık kablosuz özgürlük sağlıyor.'),
+    (8, 18, 3, 'Spor şort rahat ancak biraz dar.'),
+    (9, 19, 5, 'Saat ve tarih göstergeli duvar saati şık ve işlevsel.'),
+    (10, 20, 4, 'Şarj edilebilir LED lamba aydınlatması yeterli.');
+
+
+-- Messages tablosuna 30 mesaj daha ekleyelim
+INSERT INTO Messages (sender_id, receiver_id, message_text)
+VALUES 
+    (1, 2, 'Ürün hakkında başka bir sorum daha var.'),
+    (2, 1, 'Sorularınızı cevaplamaktan mutluluk duyarım.'),
+    (3, 4, 'Siparişimi hızlı bir şekilde teslim almak istiyorum.'),
+    (4, 3, 'Kargo şirketiyle iletişime geçerek teslimat sürecini hızlandırabiliriz.'),
+    (5, 6, 'Ürünün ağırlığı hakkında bilgi verebilir misiniz?'),
+    (6, 5, 'Ürünün ağırlığı yaklaşık olarak 500 gramdır.'),
+    (7, 8, 'Ürünü ne zaman teslim alabilirim?'),
+    (8, 7, 'Ürün, siparişinizin onaylanmasından sonraki 2 iş günü içinde teslim edilir.'),
+    (9, 10, 'Ürünü iade etmek istiyorum.'),
+    (10, 9, 'İade işlemi için lütfen müşteri hizmetleriyle iletişime geçiniz.'),
+    (1, 3, 'Ürünüm kırılmış geldi, ne yapmalıyım?'),
+    (3, 2, 'Üzgünüz, bu durum için müşteri hizmetlerimizle iletişime geçmenizi öneririz.'),
+    (5, 8, 'Ürünü iade etmek istiyorum.'),
+    (7, 10, 'İade işlemi için gerekli adımları sizinle paylaşayım mı?'),
+    (9, 6, 'Ürün hakkında bir sorum var.'),
+    (2, 5, 'Elbette, ne hakkında bilgi almak istersiniz?'),
+    (4, 9, 'Siparişim nerede?'),
+    (8, 1, 'Siparişiniz kargoya verildi, takip numarası: XYZ123'),
+    (10, 7, 'Ürün hakkında detaylı bilgi alabilir miyim?'),
+    (6, 4, 'Tabii, hangi ürün hakkında bilgi almak istiyorsunuz?'),
+    (3, 7, 'Ürün hakkında başka bir sorum var.'),
+    (1, 10, 'Sorularınızı cevaplamaktan memnuniyet duyarım.'),
+    (5, 2, 'Siparişim ne zaman teslim edilecek?'),
+    (9, 8, 'Siparişinizin teslimat tarihi 3-5 iş günü içindedir.'),
+    (4, 6, 'Ürünü nasıl iade edebilirim?'),
+    (2, 3, 'İade süreci için müşteri hizmetlerimizi arayabilirsiniz.'),
+    (10, 5, 'Ürün hakkında başka bir soru var mı?'),
+    (8, 9, 'Ürün hakkında bilgi almak için lütfen bize ulaşın.'),
+    (6, 1, 'Siparişimde bir sorun var, yardımcı olabilir misiniz?'),
+    (7, 4, 'Elbette, hangi konuda yardımcı olabilirim?');

@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:form>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">DomesticSupplier
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <h:commandButton styleClass="nav-link #{nbdomestic.pages.get('anasayfa')}" action="#{nbdomestic.module('anasayfa')}" value="Ana Sayfa" /> 
+                        </li>
+                        <li class="nav-item">
+                            <h:commandButton styleClass="nav-link #{nbdomestic.pages.get('iletisim')}" action="#{nbdomestic.module('iletisim')}" value="İletişim" /> 
+                        </li>
+                        <li class="nav-item">
+                            <h:commandButton styleClass="nav-link #{nbdomestic.pages.get('profile')}" action="#{nbdomestic.module('profile')}" value="Profil" /> 
+                        </li>
+                        <li class="nav-item">
+                            <h:commandButton styleClass="nav-link #{nbdomestic.pages.get('ticaretbakanligi')}" action="#{nbdomestic.module('ticaretbakanligi')}" value="Ticaret Bakanlığı" /> 
+                        </li>
+                        <li class="nav-item">
+                            <h:commandButton styleClass="nav-link #{nbdomestic.pages.get('urunlerim')}" action="#{nbdomestic.module('urunlerim')}" value="Ürünlerim" /> 
+                        </li>
+                        <li class="nav-item">
+                            <h:commandButton styleClass="nav-link #{nbdomestic.pages.get('sohbet')}" action="#{nbdomestic.module('sohbet')}" value="Sohbet" /> 
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <h:commandButton action="#{loginBean.logout()}" styleClass="btn btn-outline-danger"
+                                             value="Çıkış Yap" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </h:form>
+
+</ui:composition>

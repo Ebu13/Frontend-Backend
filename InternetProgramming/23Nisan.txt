@@ -1,0 +1,253 @@
+-- Kullanıcılar Tablosu Oluşturma
+CREATE TABLE Users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_type VARCHAR(50) CHECK (user_type IN ('DomesticSupplier', 'ForeignBuyer')) NOT NULL
+);
+
+-- Ürünler Tablosu Oluşturma
+CREATE TABLE Products (
+    product_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES Users(user_id),
+    product_name VARCHAR(100) NOT NULL,
+    description TEXT,
+    price NUMERIC(10, 2) NOT NULL,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Ürün Kategorileri Tablosu Oluşturma
+CREATE TABLE ProductCategories (
+    category_id SERIAL PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL
+);
+
+-- Ürün ve Kategori İlişkisi Tablosu Oluşturma
+CREATE TABLE ProductCategoryMapping (
+    product_id INT REFERENCES Products(product_id),
+    category_id INT REFERENCES ProductCategories(category_id),
+    PRIMARY KEY (product_id, category_id)
+);
+
+-- Stoklar Tablosu Oluşturma
+CREATE TABLE Stocks (
+    stock_id SERIAL PRIMARY KEY,
+    product_id INT REFERENCES Products(product_id),
+    quantity INT NOT NULL,
+    last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Siparişler Tablosu Oluşturma
+CREATE TABLE Orders (
+    order_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES Users(user_id),
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total_amount NUMERIC(10, 2) NOT NULL
+);
+
+-- Sipariş Detayları Tablosu Oluşturma
+CREATE TABLE OrderDetails (
+    detail_id SERIAL PRIMARY KEY,
+    order_id INT REFERENCES Orders(order_id),
+    product_id INT REFERENCES Products(product_id),
+    quantity INT NOT NULL,
+    price NUMERIC(10, 2) NOT NULL
+);
+
+-- İade ve İptal Talepleri Tablosu Oluşturma
+CREATE TABLE ReturnAndCancellationRequests (
+    request_id SERIAL PRIMARY KEY,
+    order_id INT REFERENCES Orders(order_id),
+    user_id INT REFERENCES Users(user_id),
+    request_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    request_type VARCHAR(12) CHECK (request_type IN ('Return', 'Cancellation')) NOT NULL,
+    status VARCHAR(8) CHECK (status IN ('Pending', 'Approved', 'Rejected')) DEFAULT 'Pending'
+);
+
+-- Değerlendirme ve Yorumlar Tablosu Oluşturma
+CREATE TABLE Reviews (
+    review_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES Users(user_id),
+    product_id INT REFERENCES Products(product_id),
+    rating INT NOT NULL,
+    comment TEXT,
+    review_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Mesajlaşmalar Tablosu Oluşturma
+CREATE TABLE Messages (
+    message_id SERIAL PRIMARY KEY,
+    sender_id INT REFERENCES Users(user_id),
+    receiver_id INT REFERENCES Users(user_id),
+    message_text TEXT NOT NULL,
+    send_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_read BOOLEAN DEFAULT FALSE
+);
+
+
+----------------------------------------------------------------
+
+-- Kullanıcılar (Users) Tablosu Verileri
+INSERT INTO Users (username, password, email, user_type)
+VALUES 
+('JohnSmith', 'pass123', 'john@example.com', 'DomesticSupplier'),
+('EmmaJohnson', 'pass456', 'emma@example.com', 'DomesticSupplier'),
+('MichaelBrown', 'pass789', 'michael@example.com', 'ForeignBuyer'),
+('SophiaDavis', 'passabc', 'sophia@example.com', 'ForeignBuyer'),
+('WilliamWilson', 'passdef', 'william@example.com', 'DomesticSupplier'),
+('OliviaMartinez', 'passghi', 'olivia@example.com', 'ForeignBuyer'),
+('JamesAnderson', 'passjkl', 'james@example.com', 'DomesticSupplier'),
+('EmilyTaylor', 'passmno', 'emily@example.com', 'DomesticSupplier'),
+('AlexanderThomas', 'passpqr', 'alexander@example.com', 'ForeignBuyer'),
+('MadisonJackson', 'passtu', 'madison@example.com', 'DomesticSupplier');
+
+-- Ürünler (Products) Tablosu Verileri
+INSERT INTO Products (user_id, product_name, description, price)
+VALUES 
+(1, 'Akıllı Telefon', 'Güçlü işlemci ve yüksek çözünürlüklü ekran.', 799.99),
+(1, 'Dizüstü Bilgisayar', 'Hafif ve taşınabilir.', 1299.99),
+(2, 'Kadın Gömlek', 'Rahat ve şık.', 39.99),
+(2, 'Erkek Kot Pantolon', 'Klasik kesim.', 49.99),
+(3, 'Bahçe Makası', 'Paslanmaz çelikten üretilmiş.', 24.99),
+(4, 'Spor Ayakkabı', 'Yüksek performanslı taban.', 89.99),
+(5, 'Bisküvi Assorti', 'Çeşitli lezzetler.', 9.99),
+(6, 'Roman Kitabı', 'En çok satanlar listesinden.', 14.99),
+(7, 'Ahşap Oyuncak Araba', 'El yapımı ve boyalı.', 29.99),
+(8, 'Gümüş Kolye', 'Sade ve şık tasarım.', 79.99);
+
+-- Ürün Kategorileri (ProductCategories) Tablosu Verileri
+INSERT INTO ProductCategories (category_name)
+VALUES 
+('Elektronik'),
+('Giyim'),
+('Bahçe ve Aletler'),
+('Spor Malzemeleri'),
+('Gıda'),
+('Kitaplar'),
+('Oyuncaklar'),
+('Mücevherat'),
+('Kozmetik'),
+('Aksesuarlar');
+
+-- Ürün ve Kategori İlişkisi (ProductCategoryMapping) Tablosu Verileri
+INSERT INTO ProductCategoryMapping (product_id, category_id)
+VALUES 
+(1, 1),
+(2, 1),
+(3, 2),
+(4, 2),
+(5, 3),
+(6, 4),
+(7, 5),
+(8, 6),
+(9, 7),
+(10, 8);
+
+-- Stoklar (Stocks) Tablosu Verileri
+INSERT INTO Stocks (product_id, quantity)
+VALUES 
+(1, 100),
+(2, 150),
+(3, 120),
+(4, 200),
+(5, 80),
+(6, 110),
+(7, 90),
+(8, 170),
+(9, 60),
+(10, 140);
+
+-- Siparişler (Orders) Tablosu Verileri
+INSERT INTO Orders (user_id, total_amount)
+VALUES 
+(1, 200.00),
+(2, 150.00),
+(3, 180.00),
+(4, 220.00),
+(5, 250.00),
+(6, 130.00),
+(7, 170.00),
+(8, 300.00),
+(9, 190.00),
+(10, 210.00);
+
+-- Sipariş Detayları (OrderDetails) Tablosu Verileri
+INSERT INTO OrderDetails (order_id, product_id, quantity, price)
+VALUES 
+(1, 1, 2, 799.99),
+(2, 2, 1, 1299.99),
+(3, 3, 3, 39.99),
+(4, 4, 2, 49.99),
+(5, 5, 4, 24.99),
+(6, 6, 1, 89.99),
+(7, 7, 2, 9.99),
+(8, 8, 3, 14.99),
+(9, 9, 1, 29.99),
+(10, 10, 2, 79.99);
+
+-- İade ve İptal Talepleri (ReturnAndCancellationRequests) Tablosu Verileri
+INSERT INTO ReturnAndCancellationRequests (order_id, user_id, request_type)
+VALUES 
+(1, 1, 'Return'),
+(2, 2, 'Cancellation'),
+(3, 3, 'Return'),
+(4, 4, 'Cancellation'),
+(5, 5, 'Return'),
+(6, 6, 'Cancellation'),
+(7, 7, 'Return'),
+(8, 8, 'Cancellation'),
+(9, 9, 'Return'),
+(10, 10, 'Cancellation');
+
+-- Değerlendirme ve Yorumlar (Reviews) Tablosu Verileri
+INSERT INTO Reviews (user_id, product_id, rating, comment)
+VALUES 
+(1, 1, 4, 'Telefon hızlı ve güvenilir, ancak pil ömrü kısa.'),
+(2, 2, 5, 'Dizüstü bilgisayar mükemmel, taşınabilirlik harika.'),
+(3, 3, 3, 'Gömlek kalitesi iyi ama beden biraz büyük.'),
+(4, 4, 2, 'Pantolon rengi beklediğimden farklı çıktı.'),
+(5, 5, 4, 'Bahçe makası keskin ve kullanışlı.'),
+(6, 6, 1, 'Ayakkabı numarası uyumlu değil, iade ediyorum.'),
+(7, 7, 5, 'Bisküviler çok lezzetli, tavsiye ederim.'),
+(8, 8, 4, 'Roman akıcı ve sürükleyici bir hikaye.'),
+(9, 9, 3, 'Oyuncak araba dayanıklı ve sağlam.'),
+(10, 10, 2, 'Kolye tasarımı beklediğimden basit.');
+
+-- Mesajlaşmalar (Messages) Tablosu Verileri
+INSERT INTO Messages (sender_id, receiver_id, message_text)
+VALUES 
+(1, 2, 'Merhaba, ürün hakkında bilgi alabilir miyim?'),
+(2, 1, 'Tabii, hangi ürün hakkında bilgi istiyorsunuz?'),
+(3, 4, 'Siparişim ne zaman gelecek?'),
+(4, 3, 'Siparişiniz yola çıktı, yakında teslim edilecek.'),
+(5, 6, 'İade işlemim hakkında bilgi alabilir miyim?'),
+(6, 5, 'İadeniz işleme alındı, kısa sürede gerçekleştirilecek.'),
+(7, 8, 'Ürün hakkında detaylı bilgi alabilir miyim?'),
+(8, 7, 'Evet, ürün hakkında size detaylı bilgi verebilirim.'),
+(9, 10, 'Siparişimi nasıl iptal edebilirim?'),
+(10, 9, 'Sipariş iptali için lütfen müşteri hizmetlerimizle iletişime geçin.');
+
+
+----------------------------------------------------------------
+
+SELECT 
+    o.order_id,
+    u.username AS user_name,
+    p.product_name,
+    pc.category_name,
+    od.quantity,
+    od.price,
+    r.rating,
+    r.comment,
+    rc.request_type,
+    rc.status
+FROM Orders o
+LEFT JOIN Users u ON o.user_id = u.user_id
+LEFT JOIN OrderDetails od ON o.order_id = od.order_id
+LEFT JOIN Products p ON od.product_id = p.product_id
+LEFT JOIN ProductCategoryMapping pcm ON p.product_id = pcm.product_id
+LEFT JOIN ProductCategories pc ON pcm.category_id = pc.category_id
+LEFT JOIN Reviews r ON p.product_id = r.product_id
+LEFT JOIN ReturnAndCancellationRequests rc ON o.order_id = rc.order_id;

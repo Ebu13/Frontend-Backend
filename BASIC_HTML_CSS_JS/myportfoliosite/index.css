@@ -1,0 +1,14 @@
+.card {
+    border: none !important;
+  }
+  .nav-item {
+    padding: 0 10px;
+  }
+  .footer-container {
+    background-color: #f8f9fa;
+  }
+  .contact-icons {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }

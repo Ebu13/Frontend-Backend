@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Film Manager</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
+    </h:head>
+    <h:body class="container">
+        <h1>Film Manager</h1>
+
+        <!-- Ekleme Formu -->
+        <h:form id="addForm" class="mb-4">
+            <h2>Add Film</h2>
+            <div class="form-group">
+                <h:outputLabel for="name">Name:</h:outputLabel>
+                <h:inputText id="name" value="#{filmController.newFilm.name}" required="true" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="description">Description:</h:outputLabel>
+                <h:inputText id="description" value="#{filmController.newFilm.description}" required="true" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="text">Text:</h:outputLabel>
+                <h:inputTextarea id="text" value="#{filmController.newFilm.text}" rows="5" required="true" class="form-control"></h:inputTextarea>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="tur">Tur:</h:outputLabel>
+                <h:inputText id="tur" value="#{filmController.newFilm.tur}" required="true" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="duration">Duration:</h:outputLabel>
+                <h:inputText id="duration" value="#{filmController.newFilm.duration}" required="true" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="year">Year:</h:outputLabel>
+                <h:inputText id="year" value="#{filmController.newFilm.year}" required="true" class="form-control"/>
+            </div>
+            <h:commandButton value="Add" action="#{filmController.addFilm}" class="btn btn-primary"/>
+        </h:form>
+
+        <!-- Film Listesi -->
+        <h2>Films</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Text</th>
+                        <th>Tur</th>
+                        <th>Duration</th>
+                        <th>Year</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ui:repeat value="#{filmController.films}" var="film">
+                        <tr>
+                            <td>#{film.id}</td>
+                            <td>#{film.name}</td>
+                            <td>#{film.description}</td>
+                            <td>#{film.text}</td>
+                            <td>#{film.tur}</td>
+                            <td>#{film.duration}</td>
+                            <td>#{film.year}</td>
+                            <td>
+                                <h:form>
+                                    <h:commandButton value="Edit" action="#{filmController.editFilm(film)}" class="btn btn-warning">
+                                        <f:setPropertyActionListener target="#{filmController.selectedFilm}" value="#{film}" />
+                                    </h:commandButton>
+                                </h:form>
+                            </td>
+                            <td>
+                                <h:form>
+                                    <h:commandButton value="Delete" action="#{filmController.deleteFilm(film.id)}" onclick="return confirm('Are you sure?')" class="btn btn-danger"/>
+                                </h:form>
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Güncelleme Formu -->
+        <h:form id="editForm" rendered="#{not empty filmController.selectedFilm}">
+            <h2>Edit Film</h2>
+            <div class="form-group">
+                <h:outputLabel for="editName">Name:</h:outputLabel>
+                <h:inputText id="editName" value="#{filmController.selectedFilm.name}" required="true" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="editDescription">Description:</h:outputLabel>
+                <h:inputText id="editDescription" value="#{filmController.selectedFilm.description}" required="true" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="editText">Text:</h:outputLabel>
+                <h:inputTextarea id="editText" value="#{filmController.selectedFilm.text}" rows="5" required="true" class="form-control"></h:inputTextarea>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="editTur">Tur:</h:outputLabel>
+                <h:inputText id="editTur" value="#{filmController.selectedFilm.tur}" required="true" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="editDuration">Duration:</h:outputLabel>
+                <h:inputText id="editDuration" value="#{filmController.selectedFilm.duration}" required="true" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="editYear">Year:</h:outputLabel>
+                <h:inputText id="editYear" value="#{filmController.selectedFilm.year}" required="true" class="form-control"/>
+            </div>
+            <h:commandButton value="Update" action="#{filmController.updateFilm}" class="btn btn-success"/>
+        </h:form>
+
+        <!-- Bootstrap JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </h:body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Film Management</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
+    </h:head>
+
+    <h:body class="container">
+        <h1>Film Management</h1>
+
+        <!-- Add Film Form -->
+        <h:form id="addForm" class="mb-4">
+            <h2>Add Film</h2>
+            <div class="form-group">
+                <h:outputLabel for="title">Title:</h:outputLabel>
+                <h:inputText id="title" value="#{filmController.newFilm.title}" required="true" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="category">Category:</h:outputLabel>
+                <h:inputText id="category" value="#{filmController.newFilm.category}" required="true" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="review">Review:</h:outputLabel>
+                <h:inputTextarea id="review" value="#{filmController.newFilm.review}" required="true" class="form-control"/>
+            </div>
+            <h:commandButton value="Add" action="#{filmController.addFilm}" class="btn btn-primary"/>
+        </h:form>
+
+        <!-- Film List -->
+        <h2>Films</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Film ID</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Review</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ui:repeat value="#{filmController.films}" var="film">
+                        <tr>
+                            <td>#{film.id}</td>
+                            <td>#{film.title}</td>
+                            <td>#{film.category}</td>
+                            <td>#{film.review}</td>
+                            <td>
+                                <h:form>
+                                    <h:commandButton value="Edit" action="#{filmController.editFilm(film)}" class="btn btn-warning">
+                                        <f:setPropertyActionListener target="#{filmController.selectedFilm}" value="#{film}" />
+                                    </h:commandButton>
+                                </h:form>
+                            </td>
+                            <td>
+                                <h:form>
+                                    <h:commandButton value="Delete" action="#{filmController.deleteFilm(film.id)}" onclick="return confirm('Are you sure?')" class="btn btn-danger"/>
+                                </h:form>
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Edit Form -->
+        <h:form id="editForm" rendered="#{not empty filmController.selectedFilm}">
+            <h2>Edit Film</h2>
+            <div class="form-group">
+                <h:outputLabel for="editTitle">Title:</h:outputLabel>
+                <h:inputText id="editTitle" value="#{filmController.selectedFilm.title}" required="true" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="editCategory">Category:</h:outputLabel>
+                <h:inputText id="editCategory" value="#{filmController.selectedFilm.category}" required="true" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="editReview">Review:</h:outputLabel>
+                <h:inputTextarea id="editReview" value="#{filmController.selectedFilm.review}" required="true" class="form-control"/>
+            </div>
+            <h:commandButton value="Update" action="#{filmController.updateFilm}" class="btn btn-success"/>
+        </h:form>
+
+        <!-- Bootstrap JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </h:body>
+</html>

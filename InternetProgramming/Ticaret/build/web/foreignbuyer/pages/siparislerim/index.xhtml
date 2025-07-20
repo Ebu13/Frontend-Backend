@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/foreignbuyer/template/template.xhtml">
+
+    <ui:define name="content">
+        <div class="container mt-5">
+            <h2 class="mb-4">Siparişlerim</h2>
+        
+            <h:form class="form-inline mb-4">
+                <h:commandButton value="Listele" action="#{myOrdersController.filterOrders(loginBean.loggedInUser)}" class="btn btn-primary"/>
+            </h:form>
+            
+            <h:dataTable value="#{myOrdersController.orderDetails}" var="orderDetail" rendered="#{not empty myOrdersController.orderDetails}" class="table table-striped">
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Ürün İsmi" />
+                    </f:facet>
+                    <h:outputText value="#{orderDetail.product.productName}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Adet" />
+                    </f:facet>
+                    <h:outputText value="#{orderDetail.quantity}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Ücret" />
+                    </f:facet>
+                    <h:outputText value="#{orderDetail.price}" />
+                </h:column>
+            </h:dataTable>
+            
+            <h:outputText value="No orders found." rendered="#{empty myOrdersController.orderDetails}" class="text-danger"/>
+        </div>
+    </ui:define>
+</ui:composition>

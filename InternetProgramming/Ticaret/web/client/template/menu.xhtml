@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:form>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <h:commandLink styleClass="nav-link #{nbclient.pages.get('anasayfa')}"
+                                           action="#{nbclient.module('anasayfa')}">
+                                <h:outputText value="Ana Sayfa" />
+                            </h:commandLink>
+                        </li>
+                        <li class="nav-item">
+                            <h:commandLink styleClass="nav-link #{nbclient.pages.get('iletisim')}"
+                                           action="#{nbclient.module('iletisim')}">
+                                <h:outputText value="İletişim" />
+                            </h:commandLink>
+                        </li>
+                        <li class="nav-item">
+                            <h:commandLink styleClass="nav-link #{nbclient.pages.get('ticaretbakanligi')}"
+                                           action="#{nbclient.module('ticaretbakanligi')}">
+                                <h:outputText value="Ticaret Bakanlığı" />
+                            </h:commandLink>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <h:commandButton action="/register/index?faces-redirect=true" styleClass="btn btn-outline-primary"
+                                             value="Kayıt Ol" />
+                        </li>
+                        <li class="nav-item">
+                            <h:commandButton action="/login/index?faces-redirect=true" styleClass="btn btn-outline-primary"
+                                             value="Giriş Yap" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </h:form>
+
+</ui:composition>

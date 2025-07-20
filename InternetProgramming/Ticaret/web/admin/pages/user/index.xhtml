@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="jakarta.faces.core"
+                template="/admin/template/template.xhtml">
+
+    <ui:define name="content">
+        <h1>User Management</h1>
+
+        <!-- User List -->
+        <h2>Users</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>User ID</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>Email</th>
+                        <th>Registration Date</th>
+                        <th>User Type</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ui:repeat value="#{userController.users}" var="user">
+                        <tr>
+                            <td>#{user.userId}</td>
+                            <td>#{user.username}</td>
+                            <td>#{user.password}</td>
+                            <td>#{user.email}</td>
+                            <td>#{user.registrationDate}</td>
+                            <td>#{user.userType}</td>
+                            <td>
+                                <h:form>
+                                    <h:commandButton value="Delete" action="#{userController.deleteUser(user.userId)}" onclick="return confirm('Are you sure?')" class="btn btn-danger"/>
+                                </h:form>
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination Buttons -->
+        <h:form>
+            <h:commandButton value="Previous Page" action="#{userController.previousPage}" rendered="#{userController.pageNumber > 1}" class="btn btn-primary"/>
+            <h:outputText value="Page: #{userController.pageNumber}"/>
+            <h:commandButton value="Next Page" action="#{userController.nextPage}" rendered="#{userController.users.size() == userController.pageSize}" class="btn btn-primary"/>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

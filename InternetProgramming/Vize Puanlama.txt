@@ -1,0 +1,10 @@
+> Crud Bitmiş olacak(JDBC ile)
+> En Az 1 One to Many (inject ile)
+> En Az 1 Many to Many
+> Pagination Sistemi Olacak
+> Directory Structure
+> Template Sistemi Olacak
+> Generic Types Olacak
+> Navigation
+> Ajax
+> Bootsrap

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ana Sayfa</title>
+    <!-- Bootstrap CSS dosyasını dahil et -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <!--  Header Bölümü-->
+    <header>
+      <!-- Navigasyon Bölümü -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand ms-1" href="#"
+            ><img
+              src="icons/content-cut.svg"
+              alt="Bulunamadı"
+              height="50px"
+            />Kuaför Hasan Aktoprak</a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link px-3" href="#randevual">Randevu Al</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-3" href="#hakkında">Hakkında</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-3" href="#iletisim">İletişim</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <!-- Tanıtım Bölümü -->
+      <br id="hakkında" />
+      <br /><br />
+      <section class="container py-5">
+        <div class="row">
+          <div class="col-md-6">
+            <img
+              src="images/barber-5194406_960_720.jpg"
+              alt="Tanıtım Fotoğrafı"
+              class="img-fluid"
+              style="border-radius: 30px"
+            />
+          </div>
+          <div class="col-md-6">
+            <br />
+            <h2>Tanıtım Başlığı</h2>
+            <p>Tanıtım metni buraya gelecek.</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
+              vel metus vel justo pharetra ullamcorper. Nunc volutpat auctor
+              ligula, in consectetur magna mollis ut. Fusce sed scelerisque
+              tellus. Ut volutpat ex a sagittis commodo. Sed euismod neque at
+              odio fringilla gravida. Vestibulum mollis mi lorem, sed convallis
+              mauris interdum ut.
+            </p>
+            <p>
+              Nullam non ex ligula. Cras faucibus eu lorem id lobortis. Sed a
+              iaculis lectus. Sed sit amet quam tincidunt, placerat tellus id,
+              faucibus elit. Nullam in felis eleifend, facilisis enim eu,
+              interdum ligula. Sed fermentum ipsum ac velit efficitur, ac mattis
+              ante molestie. Fusce sed malesuada odio, id pretium mi.
+            </p>
+          </div>
+        </div>
+      </section>
+      <hr />
+      <section class="container py-5">
+        <div class="row">
+          <div class="col-md-6">
+            <h2>Tanıtım Başlığı</h2>
+            <p>Tanıtım metni buraya gelecek.</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
+              vel metus vel justo pharetra ullamcorper. Nunc volutpat auctor
+              ligula, in consectetur magna mollis ut. Fusce sed scelerisque
+              tellus. Ut volutpat ex a sagittis commodo. Sed euismod neque at
+              odio fringilla gravida. Vestibulum mollis mi lorem, sed convallis
+              mauris interdum ut.
+            </p>
+            <p>
+              Nullam non ex ligula. Cras faucibus eu lorem id lobortis. Sed a
+              iaculis lectus. Sed sit amet quam tincidunt, placerat tellus id,
+              faucibus elit. Nullam in felis eleifend, facilisis enim eu,
+              interdum ligula. Sed fermentum ipsum ac velit efficitur, ac mattis
+              ante molestie. Fusce sed malesuada odio, id pretium mi.
+            </p>
+          </div>
+          <div class="col-md-6">
+            <img
+              src="images/OIP.jpg"
+              alt="Tanıtım Fotoğrafı"
+              class="img-fluid"
+              style="border-radius: 30px"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- Randevu Alma Bölümü -->
+
+      <!-- Randevu Alma Bölümü -->
+      <br id="randevual" /><br />
+      <section class="container py-5">
+        <div class="text-center">
+          <h2>Randevu Bölümü</h2>
+          <br />
+        </div>
+
+        <!-- Tabs Bölümü -->
+        <ul
+          class="nav nav-pills justify-content-center mb-4"
+          id="myTab"
+          role="tablist"
+        >
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="admin-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#admin"
+              type="button"
+              role="tab"
+              aria-controls="admin"
+              aria-selected="true"
+            >
+              Yönetici Girişi
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="customer-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#customer"
+              type="button"
+              role="tab"
+              aria-controls="customer"
+              aria-selected="false"
+            >
+              Müşteri Girişi
+            </button>
+          </li>
+        </ul>
+
+        <!-- Tabs İçeriği -->
+        <div class="tab-content">
+          <!-- Yönetici Girişi -->
+          <div
+            class="tab-pane fade show active"
+            id="admin"
+            role="tabpanel"
+            aria-labelledby="admin-tab"
+          >
+            <div class="row">
+              <div class="col-md-6 offset-md-3">
+                <h2>Yönetici Girişi</h2>
+                <form id="admin-login-form">
+                  <div class="mb-3">
+                    <label for="username" class="form-label"
+                      >Kullanıcı Adı:</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="username"
+                      placeholder="Kullanıcı Adınızı Girin"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="password" class="form-label">Şifre:</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      placeholder="Şifrenizi Girin"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    Giriş Yap
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Müşteri Girişi -->
+          <div
+            class="tab-pane fade"
+            id="customer"
+            role="tabpanel"
+            aria-labelledby="customer-tab"
+          >
+            <div class="row">
+              <div class="col-md-6 offset-md-3">
+                <h2>Müşteri Girişi</h2>
+                <form id="customer-login-form">
+                  <div class="mb-3">
+                    <label for="email" class="form-label">E-mail:</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      placeholder="E-mail Adresinizi Girin"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="phone" class="form-label">Telefon:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="phone"
+                      placeholder="Telefon Numaranızı Girin"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="fullname" class="form-label">Ad Soyad:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="fullname"
+                      placeholder="Adınızı ve Soyadınızı Girin"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary" id="loginBtn">
+                    Giriş Yap
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- İletişim Bölümü-->
+    <footer class="bg-dark text-light py-4" id="iletisim">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <h2>İletişim Bilgileri</h2>
+            <br />
+            <p>
+              Telefon: 05531651382
+              <br /><br />
+              Adres: Huzur Evleri, Örnek Sokak No: 123, Diyarbakır, Türkiye
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- jQuery kütüphanesini dahil et -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Toggle a basıldığında geri kapanması için-->
+    <script>
+      $(document).ready(function () {
+        $(".navbar-nav .nav-link").click(function () {
+          $(".navbar-collapse").collapse("hide");
+        });
+      });
+    </script>
+
+    <!-- Admin Sayfasına yönlendirmek için-->
+    <script>
+      $(document).ready(function () {
+        $("#admin-login-form").submit(function (event) {
+          event.preventDefault(); // Formun varsayılan gönderme işlemini engelle
+
+          // Burada form verilerini işleyebilirsiniz
+          var username = $("#username").val();
+          var password = $("#password").val();
+
+          // Kullanıcı adı ve şifre kontrolü
+          if (username === "admin" && password === "123456") {
+            // Doğru kullanıcı adı ve şifre, yönlendirme yap
+            window.location.href = "admin.html";
+          } else {
+            // Yanlış kullanıcı adı veya şifre, hata mesajı göster veya başka bir işlem yap
+            alert("Yanlış kullanıcı adı veya şifre!");
+          }
+        });
+      });
+    </script>
+
+    <!-- Müşteri Sayfasına yönlendirmek için -->
+    <script>
+      $(document).ready(function () {
+        $("#customer-login-form").submit(function (event) {
+          event.preventDefault(); // Formun varsayılan gönderme işlemini engelle
+
+          // Burada form verilerini işleyebilirsiniz
+          var email = $("#email").val();
+          var phone = $("#phone").val();
+          var fullname = $("#fullname").val();
+
+          // Telefon numarasının doğruluğunu kontrol et
+          var phoneNumberPattern = /^0[0-9]{10}$/; // "0" ile başlayan ve toplamda 11 haneli bir desen
+          var isPhoneNumberValid = phoneNumberPattern.test(phone);
+
+          // Müşteri bilgilerini kontrol et
+          if (email && isPhoneNumberValid && fullname) {
+            // Doğru müşteri bilgileri, yönlendirme yap
+            window.location.href = "customer.html";
+          } else {
+            // Eksik müşteri bilgileri veya hatalı telefon numarası, hata mesajı göster veya başka bir işlem yap
+            alert(
+              "Lütfen tüm alanları doldurun ve geçerli bir telefon numarası girin\n(Numara 0 ile başlamalıdır!)"
+            );
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

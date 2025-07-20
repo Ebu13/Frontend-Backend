@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Döviz Çevirici</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="card-title">Döviz Çevirici</h1>
+    <div>
+      <select class="form-select" id="fromCurrency">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+      </select>
+    </div>
+    <div>
+      <input type="number" class="form-control" id="amount" placeholder="Miktar">
+    </div>
+    <div>
+      <select class="form-select" id="toCurrency">
+        <option value="TRY">TRY</option>
+      </select>
+    </div>
+    <div>
+      <input type="text" class="form-control" id="result" placeholder="Sonuç" disabled>
+    </div>
+    <div>
+      <button class="btn btn-primary" id="convert">Çevir</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

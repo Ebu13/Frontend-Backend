@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yönetici Paneli</title>
+
+    <!-- jQuery kütüphanesi -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap CSS kütüphanesi -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+
+    <!-- Bootstrap JS kütüphanesi -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap DatePicker CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+    />
+
+    <!-- Bootstrap DatePicker JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+  </head>
+  <body>
+    <div class="d-flex justify-content-center">
+      <h2>Tarih Seçme Bölümü</h2>
+    </div>
+
+    <!-- Tarih seçme-->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div id="datePicker" class="input-group date">
+            <input type="text" class="form-control" readonly />
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <img src="icons/calendar.svg" alt="-" style="height: 20px" />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Ad ve Soyad</th>
+          <th>E-mail</th>
+          <th>Telefon Numarası</th>
+          <th>Saat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ebubekir Sıddık Nazlı</td>
+          <td>mail1@gmail.com</td>
+          <td>05531651382</td>
+          <td>19:00</td>
+        </tr>
+        <tr>
+          <td>Hasan Aktoprak</td>
+          <td>mail2@gmail.com</td>
+          <td>05530001652</td>
+          <td>15:00</td>
+        </tr>
+        <tr>
+          <td>Ebubekir Sıddık Nazlı</td>
+          <td>mail1@gmail.com</td>
+          <td>05531651382</td>
+          <td>19:00</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="text-center mt-3">
+      <button id="pdfButton" class="btn btn-primary">
+        Pdf formatında mail at
+      </button>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        $("#datePicker").datepicker({
+          format: "dd/mm/yyyy",
+          startDate: "16/06/2023",
+          endDate: "30/06/2023",
+          autoclose: true,
+          todayHighlight: true,
+        });
+      });
+    </script>
+  </body>
+</html>

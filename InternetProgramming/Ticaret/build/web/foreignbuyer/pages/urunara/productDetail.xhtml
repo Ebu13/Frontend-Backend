@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/foreignbuyer/template/template.xhtml">
+
+    <ui:define name="content">
+        <h1 class="mb-4">Ürün Detayları</h1>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">#{productController.selectedProduct.productName}</h5>
+                        <p class="card-text">#{productController.selectedProduct.description}</p>
+                        <p class="card-text">Fiyat: #{productController.selectedProduct.price}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Yorumlar</h5>
+                <div class="list-group">
+                    <ui:repeat value="#{reviewController.fbReviews}" var="review">
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">#{review.comment}</h5>
+                                <small>Puan: #{review.rating}</small>
+                            </div>
+                            <p class="mb-1">Yorum Yapan: #{review.user.username}</p>
+                        </div>
+                    </ui:repeat>
+                </div>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Yorum Ekle</h5>
+                <h:form id="addReviewForm">
+                    <div class="form-group">
+                        <h:inputTextarea id="comment" value="#{reviewController.newReview.comment}" cols="30" rows="5" class="form-control" required="true" requiredMessage="Yorum boş olamaz!"/>
+                        <h:message for="comment" styleClass="text-danger"/>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel for="rating">Puan:</h:outputLabel>
+                        <h:selectOneMenu id="rating" value="#{reviewController.newReview.rating}" class="form-control" required="true" requiredMessage="Puan boş olamaz!">
+                            <f:selectItem itemValue="1" itemLabel="1" />
+                            <f:selectItem itemValue="2" itemLabel="2" />
+                            <f:selectItem itemValue="3" itemLabel="3" />
+                            <f:selectItem itemValue="4" itemLabel="4" />
+                            <f:selectItem itemValue="5" itemLabel="5" />
+                        </h:selectOneMenu>
+                        <h:message for="rating" styleClass="text-danger"/>
+                    </div>
+                    <h:commandButton value="Ekle" action="#{reviewController.addReview(productController.selectedProduct)}" styleClass="btn btn-primary">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <h:message for="rating" errorClass="text-danger"/>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,1 @@
+Api on the adress of http://localhost:8000/api/kullanicilar/

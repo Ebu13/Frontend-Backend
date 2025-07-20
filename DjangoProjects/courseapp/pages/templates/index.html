@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="shortcut icon" href="{% static 'Logo.png' %}" type="image/x-icon" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <!-- Header Section-->
+    <header>
+      <!-- Navbar Section-->
+      {% include '_nav.html' %}
+    </header>
+    <main>{% block main %}{% endblock main %}</main>
+    <!-- Footer Section-->
+    <footer class="footer-container" id="contact">
+      <!-- Contact Section-->
+      {% include '_contact.html' %}
+      <br />
+    </footer>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="index.js"></script>
+    <script>
+      // Fetching projects with GitHub API
+      $.getJSON(
+        "https://api.github.com/users/Ebu13/repos?type=owner&sort=updated",
+        function (data) {
+          var projectsContainer = $("#projectsContainer");
+
+          data.forEach(function (repo) {
+            var projectTitle = repo.name;
+            var projectLink = repo.html_url;
+            var projectDescription = repo.description;
+
+            var projectHTML = `
+        <div class="col-md-4 mt-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">${projectTitle}</h5>
+              <p class="card-text">${projectDescription}</p>
+              <a href="${projectLink}" class="btn btn-primary">View on GitHub</a>
+            </div>
+          </div>
+        </div>
+      `;
+            projectsContainer.append(projectHTML);
+          });
+        }
+      );
+    </script>
+  </body>
+</html>

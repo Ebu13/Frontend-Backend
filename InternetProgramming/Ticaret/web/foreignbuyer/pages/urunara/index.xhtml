@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="jakarta.faces.core"
+                template="/foreignbuyer/template/template.xhtml">
+
+    <ui:define name="content">
+        <h1>Ürün Arama</h1>
+
+        <!-- Arama Formu -->
+        <h:form id="searchForm">
+            <div class="form-group">
+                <h:outputLabel for="searchText" value="Search:"/>
+                <h:inputText id="searchText" value="#{productController.searchText}" class="form-control">
+                    <f:ajax event="keyup" render="resultsForm"/>
+                </h:inputText>
+            </div>
+            <h:commandButton value="Search" action="#{productController.searchProducts}" class="btn btn-primary">
+                <f:ajax render="resultsForm"/>
+            </h:commandButton>
+        </h:form>
+
+        <!-- Sonuçları Listele -->
+        <h2>Sonuçlar</h2>
+        <h:form id="resultsForm">
+            <div class="row">
+                <ui:repeat value="#{productController.searchResults}" var="product">
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">#{product.productName}</h5>
+                                <p class="card-text">#{product.description}</p>
+                                <p class="card-text">Fiyat: #{product.price}</p>
+                                <h:commandButton value="İncele" action="#{productController.viewProduct(product.productId)}" class="btn btn-secondary">
+                                    <f:ajax render=":productDetailForm"/>
+                                </h:commandButton>
+                            </div>
+                        </div>
+                    </div>
+                </ui:repeat>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

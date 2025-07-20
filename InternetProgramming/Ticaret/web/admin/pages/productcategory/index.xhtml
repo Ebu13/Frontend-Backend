@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="jakarta.faces.core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                template="/admin/template/template.xhtml">
+
+    <ui:define name="content">
+        <h1>Ürün Kategorileri</h1>
+
+        <!-- Kategori Ekle Formu -->
+        <h:form id="categoryAddForm" class="mb-4">
+            <h2>Kategori Ekle</h2>
+            <div class="form-group">
+                <h:outputLabel for="addCategoryName">Kategori Adı:</h:outputLabel>
+                <h:inputText id="addCategoryName" value="#{productCategoryController.newCategory.categoryName}" required="true"
+                             class="form-control">
+                    <f:validateLength minimum="3" maximum="50" />
+                    <f:ajax event="blur" render="addCategoryNameMessage"/>
+                </h:inputText>
+                <h:message id="addCategoryNameMessage" for="addCategoryName" styleClass="text-danger"/>
+            </div>
+            <h:commandButton value="Ekle" action="#{productCategoryController.addCategory}" class="btn btn-primary">
+                <f:ajax execute="@form" render="@form"/>
+            </h:commandButton>
+        </h:form>
+
+        <!-- Kategori Listesi -->
+        <h2>Kategoriler</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Kategori Adı</th>
+                        <th>Düzenle</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ui:repeat value="#{productCategoryController.categories}" var="category">
+                        <tr>
+                            <td>#{category.categoryName}</td>
+                            <td>
+                                <h:form>
+                                    <h:commandButton value="Düzenle" action="#{productCategoryController.setSelectedCategory(category)}"
+                                                     class="btn btn-warning">
+                                        <f:setPropertyActionListener target="#{productCategoryController.selectedCategory}"
+                                                                     value="#{category}"/>
+                                    </h:commandButton>
+                                </h:form>
+                            </td>
+                            <td>
+                                <h:form>
+                                    <h:commandButton value="Sil"
+                                                     action="#{productCategoryController.deleteCategory(category.categoryId)}"
+                                                     onclick="if (!confirm('Emin misiniz?')) return false;"
+                                                     class="btn btn-danger">
+                                        <f:ajax execute="@form" render="@form"/>
+                                    </h:commandButton>
+                                </h:form>
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Düzenleme Formu -->
+        <h:form id="categoryEditForm" rendered="#{not empty productCategoryController.selectedCategory}">
+            <h2>Kategori Düzenle</h2>
+            <div class="form-group">
+                <h:outputLabel for="editCategoryName">Kategori Adı:</h:outputLabel>
+                <h:inputText id="editCategoryName" value="#{productCategoryController.selectedCategory.categoryName}"
+                             required="true" class="form-control">
+                    <f:validateLength minimum="3" maximum="50" />
+                    <f:ajax event="blur" render="editCategoryNameMessage"/>
+                </h:inputText>
+                <h:message id="editCategoryNameMessage" for="editCategoryName" styleClass="text-danger"/>
+            </div>
+            <h:commandButton value="Güncelle" action="#{productCategoryController.updateCategory}" class="btn btn-success">
+                <f:ajax execute="@form" render="@form"/>
+            </h:commandButton>
+        </h:form>
+    </ui:define>
+</ui:composition>
